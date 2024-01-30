@@ -1,0 +1,12 @@
+syntax = "proto3";
+package archway.cwfees.v1;
+
+// MsgRegisterAsGranter allows a contract to register itself as a fee granter.
+message MsgRegisterAsGranter {
+  string granting_contract = 1;
+}
+
+// MsgUnregisterAsGranter can be used by a cosmwasm contract to unregister itself as a fee granter.
+message MsgUnregisterAsGranter {
+  string granting_contract = 1;
+}
