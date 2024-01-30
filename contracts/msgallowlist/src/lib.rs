@@ -87,6 +87,8 @@ pub fn sudo(deps: DepsMut, env: Env, msg: SudoMsg) -> Result<Response, ContractE
 }
 
 fn process_grant(deps: DepsMut, grant: CwGrant) -> Result<Response, ContractError> {
+    const TYPE_URL: &str = "/cosmwasm.wasm.v1.MsgExecuteContract";
+
     let allowed_contract = ALLOWED_CONTRACT.load(deps.storage)?;
     for msg in grant.msgs {
         // we check if all the senders are in the allow list
@@ -96,7 +98,7 @@ fn process_grant(deps: DepsMut, grant: CwGrant) -> Result<Response, ContractErro
         }
 
         // we check the message type url
-        if msg.type_url != "" {
+        if msg.type_url != TYPE_URL {
             return Err(ContractError::DisallowedMessage(msg.type_url))
         }
 
